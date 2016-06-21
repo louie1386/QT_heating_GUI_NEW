@@ -33,6 +33,7 @@ void Widget::read_Com()
 
             }
             RXD_counter = -1;
+            RXD_cks = 0;
             comm_num = 0;
         }
         else

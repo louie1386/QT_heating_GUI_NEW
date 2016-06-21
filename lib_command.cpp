@@ -217,6 +217,22 @@ void Widget::Command_run(int *com)
         PDch11 = 0;
         PDch12 = 0;
     }
+    else if(opcode == (opcode_verget + opcode_ret_base))
+    {
+        QString ArduinoVersion_Main, ArduinoVersion_Sub, ArduinoVersion_Debug, ArduinoVersion, point;
+        ArduinoVersion_Main.setNum(com[1]);
+        ArduinoVersion_Sub.setNum(com[2]);
+        ArduinoVersion_Debug.setNum(com[3]);
+        point = QString(".");
+        if(com[1]<10)
+            ArduinoVersion_Main.insert(0,"0");
+        if(com[2]<10)
+            ArduinoVersion_Sub.insert(0,"0");
+        if(com[3]<10)
+            ArduinoVersion_Debug.insert(0,"0");
+        ArduinoVersion = ArduinoVersion_Main + point + ArduinoVersion_Sub + point + ArduinoVersion_Debug;
+        ui->label_Arduino_Version->setText(ArduinoVersion);
+    }
     else if(opcode == opcode_tester)
     {
         tester = double(com[1]) + (double(com[2])/10);
@@ -306,6 +322,19 @@ void Widget::Command_PDGet()
     TXD_str += 0x02;
     TXD_str += char(opcode_pdget);
     chksum = 0x100 - (opcode_pdget % 0x100);
+    TXD_str += char(chksum);
+    serial.write(TXD_str.toLatin1());
+}
+
+void Widget::Command_VerGet()
+{
+    QString TXD_str;
+    int chksum;
+
+    TXD_str += char(command_tag);
+    TXD_str += 0x02;
+    TXD_str += char(opcode_verget);
+    chksum = 0x100 - (opcode_verget % 0x100);
     TXD_str += char(chksum);
     serial.write(TXD_str.toLatin1());
 }

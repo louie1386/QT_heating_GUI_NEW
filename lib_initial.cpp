@@ -3,7 +3,7 @@
 
 void Widget::initial()
 {
-    Version = "01.02.03";
+    Version = "01.03.00";
 
     RXD_counter = 0;
 
@@ -49,10 +49,11 @@ void Widget::initial()
 
     serial_disconnect_timer = 0;
 
-    ui_initial();
     serialport_initial();
     timer_initial();
+    ui_initial();
     draw_initial();  
+    Command_VerGet();
 }
 
 void Widget::ui_initial()

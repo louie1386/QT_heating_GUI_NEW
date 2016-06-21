@@ -9,6 +9,7 @@ void Widget::timeout_todo()
     PD_draw(timer_T);
     Temp_draw(timer_T);
     Command_Tester();
+    //Command_VerGet();
     Open_Device();
 }
 

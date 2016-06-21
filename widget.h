@@ -15,7 +15,6 @@
 #include <QProgressBar>
 #include <QPushButton>
 #include <QColor>
-#include <QtNetwork>
 
 namespace Ui {
 class Widget;
@@ -34,6 +33,7 @@ public:
     static const int opcode_liftup =        0x02;
     static const int opcode_ledsw =         0x03;
     static const int opcode_pdget =         0x04;
+    static const int opcode_verget =        0x05;
     static const int opcode_ret_base =      0xA0;
     static const int opcode_tester =        0xF0;
 
@@ -88,6 +88,8 @@ private slots:
     void Command_LEDSW(bool ONOFF);
 
     void Command_PDGet();
+
+    void Command_VerGet();
 
     void Command_Tester();
 
