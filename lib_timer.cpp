@@ -3,14 +3,32 @@
 
 void Widget::timeout_todo()
 {
-    remaining_time(timer_T);
-    read_real_temp();  
-    savelog();
-    PD_draw(timer_T);
-    Temp_draw(timer_T);
-    Command_Tester();
-    //Command_VerGet();
-    Open_Device();
+    switch(timecounter)
+    {
+    case 0:
+        remaining_time(timer_cycle);
+        break;
+    case 100:
+        read_real_temp();
+        break;
+    case 200:
+        savelog();
+        break;
+    case 300:
+        PD_draw(timer_cycle);
+        break;
+    case 400:
+        Temp_draw();
+        break;
+    case 500:
+        Command_Tester();
+        break;
+    case 600:
+        Open_Device();
+        break;
+    }
+    timecounter += timer_T;
+    timecounter = timecounter%timer_cycle;
 }
 
 void Widget::remaining_time(int cycleT)
@@ -268,7 +286,7 @@ void Widget::PD_draw(int cycleT)
     }
 }
 
-void Widget::Temp_draw(int cycleT)
+void Widget::Temp_draw()
 {
     int x, y1, y2, y3, y4, y5, y6;
     if(Temp_draw_en)
@@ -282,7 +300,7 @@ void Widget::Temp_draw(int cycleT)
         y6 = qMin(int(real_temp6*2), 250);
 
         Tempdrawnewpoint(x, y1, y2, y3, y4, y5, y6);
-        Temppointnum+=cycleT;
+        Temppointnum++;
         if(Temppointnum>300)
             Temp_draw_en = false;
     }

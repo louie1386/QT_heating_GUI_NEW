@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>Icon/Black_LED.png</file>
         <file>Icon/Blue_LED.png</file>
-        <file>Icon/draw.png</file>
         <file>Icon/Gray_LED.png</file>
         <file>Icon/Green_LED.png</file>
         <file>Icon/Logo.gif</file>

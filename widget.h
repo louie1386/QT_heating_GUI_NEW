@@ -37,13 +37,15 @@ public:
     static const int opcode_ret_base =      0xA0;
     static const int opcode_tester =        0xF0;
 
-    static const int timer_T =              1;
-    static const int pre_heating_time =     5;    //sec
+    static const int timer_T =              100;              //ms
+    static const int timer_cycle =          1000;           //ms
+
+    static const int pre_heating_time =     5*timer_cycle;  //ms
 
     static const int timer_log =            60*60*2;
     static const int logfilemax =           1000;
 
-    static const int PDsamplerate =         5;  //sec
+    static const int PDsamplerate =         5*timer_cycle;  //sec
 
     static const int SerialResetTime =      3;  //sec
     ~Widget();
@@ -69,7 +71,7 @@ private slots:
 
     void PD_draw(int cycleT);
 
-    void Temp_draw(int cycleT);
+    void Temp_draw();
 
     void Open_Device();
 
@@ -283,6 +285,8 @@ private:
     bool Temp_draw_en;
     QPointF TempPF1[300], TempPF2[300], TempPF3[300], TempPF4[300], TempPF5[300], TempPF6[300];
     int Temppointnum;
+
+    int timecounter;
 };
 
 #endif // WIDGET_H

@@ -3,11 +3,12 @@
 
 void Widget::initial()
 {
-    Version = "01.03.00";
+    Version = "01.03.01";
 
+    timecounter = 0;
     RXD_counter = 0;
 
-    Heating_Time = (ui->lcdNumber_Heatingtime->value())*60;  //sec
+    Heating_Time = (ui->lcdNumber_Heatingtime->value())*60*1000;  //ms
     setting_temp = (ui->lcdNumber_Targettemp->value());
     PD_time = Heating_Time;
     PDdisplayPointsec = 600/(PD_time/PDsamplerate);
@@ -120,7 +121,7 @@ void Widget::timer_initial()
 {
     QTimer *read_temp_timer = new QTimer(this);
     connect(read_temp_timer, SIGNAL(timeout()), this, SLOT(timeout_todo()));
-    read_temp_timer->start(timer_T*1000);
+    read_temp_timer->start(timer_T);
 }
 
 void Widget::draw_initial()
